@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item active">Quizes</li>
+{% endblock %}
+
+{% block content %}
+  <table class="table">
+    <thead class="thead-inverse">
+      <tr>
+        <th>Sections</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for quiz in quizes %}
+        <tr>
+          <td>
+            <a href="{% url 'quiz_questions' quiz.pk %}">{{ quiz.name }}</a>
+            <small class="text-muted d-block">{{ quiz.description }}</small>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

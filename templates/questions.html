@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+
+{% block title %}
+  {{ quiz.name }} - {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Quizes</a></li>
+  <li class="breadcrumb-item active">{{ quiz.name }}</li>
+{% endblock %}
+
+{% block content %}
+
+  <table class="table table-striped mb-4">
+    <thead class="thead-inverse">
+      <tr>
+        <th>Questions</th>
+        <th>Status</th>
+        <th>Note</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for question in questions %}
+        {% url 'question_answers' quiz.pk question.pk as question_url %}
+        <tr>
+          <td>
+            <p class="mb-0">
+              <a href="{{ question_url }}">{{ question.question }}</a>
+            </p>
+          </td>
+          <td class="align-middle">{{ question.status }}</td>
+          <td class="align-middle">{{ question.note }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% include 'includes/pagination.html' %}
+
+{% endblock %}
